@@ -9,12 +9,12 @@ def room(request, room):
     return render(request, 'room.html', {'room': room})
 
 def checkview(request):
-    room = request.POST['room']
+    room = request.POST['room_name']
     username = request.POST['username']
 
     if Room.objects.filter(name=room).exists():
-        redirect('/'+room+'/?username'+username)
+        return redirect('/'+room+'/?username'+username)
     else:
         new_room = Room.objects.create(name=room)
         new_room.save()
-        redirect('/'+room+'/?username'+username)
+        return redirect('/'+room+'/?username='+username)
